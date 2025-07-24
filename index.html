@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happiness Plans - Travel Agency</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4caf50;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .popup.show {
+      opacity: 1;
+    }
+    .popup.error {
+      background-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Happiness Plans</h1>
+    <p>Your Gateway to Memorable Journeys ✈️</p>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Our Tours</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home">
+    <h2>Explore the World with Us</h2>
+    <p>Discover exotic destinations, personalized packages, and unforgettable experiences with Happiness Plans – your trusted travel partner.</p>
+    <button onclick="location.href='#services'">View Packages</button>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      Founded in 2020, Happiness Plans is a premier travel agency offering curated travel experiences across the globe. Our mission is to make travel accessible, joyful, and seamless for everyone. Whether it's a honeymoon, adventure tour, or a family vacation – we've got you covered.
+    </p>
+  </section>
+
+  <section id="services">
+    <h2>Our Tour Packages</h2>
+    <div class="card">
+      <h3>🏔️ Himalayan Escape</h3>
+      <p>7-day scenic journey through the Himalayas, including trekking, local cuisine, and monastery visits.</p>
+    </div>
+    <div class="card">
+      <h3>🏝️ Maldives Retreat</h3>
+      <p>Luxury beach resort with spa, snorkeling, and candlelight dinners for couples and honeymooners.</p>
+    </div>
+    <div class="card">
+      <h3>🏙️ Europe Explorer</h3>
+      <p>Explore Paris, Rome, and Amsterdam with guided tours, museum visits, and shopping experiences.</p>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>What Our Travellers Say</h2>
+    <blockquote>
+      “Best travel agency ever! The Maldives trip was a dream come true. Everything was perfectly arranged.” – Priya Sharma
+    </blockquote>
+    <blockquote>
+      “The team at Happiness Plans made our honeymoon in Europe seamless and special. Highly recommended!” – Rohan & Neha
+    </blockquote>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Happiness Plans Travel Agency. All rights reserved.</p>
+  </footer>
+
+  <div class="popup" id="popup-message"></div>
+
+  <script>
+    function showPopup(message, isError = false) {
+      const popup = document.getElementById("popup-message");
+      popup.textContent = message;
+      popup.className = "popup show" + (isError ? " error" : "");
+      setTimeout(() => popup.classList.remove("show"), 3000);
+    }
+
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+      fetch("https://formsubmit.co/ajax/kousikdmk@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          showPopup("✅ Message Sent Successfully!");
+          form.reset();
+        })
+        .catch((error) => showPopup("❌ Error Sending Message!", true));
+    });
+  </script>
+</body>
+</html>
